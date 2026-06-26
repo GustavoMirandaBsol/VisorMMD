@@ -1,0 +1,17 @@
+sequenceDiagram
+    autonumber
+    actor Client as Client
+    participant P1 as GET Bsol/BusinessApiCreditRiskAssessment/v1/CreditRiskEvaluation/{RiskEvaluationGuid}/RetrieveDocuments
+    participant P2 as CreditRiskEvaluationService
+    participant P3 as DocLibraryService
+    participant P4 as ResultExtensions
+    Client->>+P1: GET Bsol/BusinessApiCreditRiskAssessment/v1/CreditRiskEvaluation/{RiskEvaluationGuid}/RetrieveDocuments
+    P1->>+P2: RetrieveDocumentsByIdCraAsync(Guid riskEvaluationGuid, CancellationToken cancellationToken)
+    P2->>+P2: GetDocumentDataRetrieveAsync(CreditRiskEvaluation responseCreditRiskEvaluation, RetrieveCreditRiskEvaluationCore retrieveCreditRiskEvaluationResponse, CancellationToken ct)
+    P2->>+P3: GetDocumentsListByFolderIdAsync(GetDocumentsListByFolderIdRequest getDocumentsListByFolderIdRequest, CancellationToken cancellationToken)
+    P3->>+P4: GetErrorResponseAsync(HttpResponseMessage httpResponseMessage, CancellationToken cancellationToken)
+    P4-->>-P3: Result<List<GetDocumentsListByFolderIdResponse>>
+    P3-->>-P2: Result<List<GetDocumentsListByFolderIdResponse>>
+    P2-->>-P2: Result
+    P2-->>-P1: Result<RetrieveDocumentsResponse>
+    P1-->>-Client: Results<Ok<RetrieveDocumentsResponse>, NotFound, ProblemDetails>

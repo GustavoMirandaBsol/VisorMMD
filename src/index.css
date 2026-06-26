@@ -1,0 +1,28 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Scrollbars personalizados para el sidebar */
+::-webkit-scrollbar {
+  width: 4px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #334155;
+  border-radius: 2px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #475569;
+}
+
+/* El SVG de Mermaid ocupa el ancho disponible */
+.mermaid-container svg {
+  max-width: 100%;
+  height: auto;
+  font-family: ui-sans-serif, system-ui, sans-serif;
+}

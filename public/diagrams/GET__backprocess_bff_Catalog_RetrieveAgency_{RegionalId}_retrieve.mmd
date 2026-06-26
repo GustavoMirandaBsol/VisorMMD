@@ -1,0 +1,6 @@
+sequenceDiagram
+    autonumber
+    actor Client as Client
+    participant P1 as GET /backprocess/bff/Catalog/RetrieveAgency/{RegionalId}/retrieve
+    Client->>+P1: GET /backprocess/bff/Catalog/RetrieveAgency/{RegionalId}/retrieve
+    P1-->>-Client: Results<Ok<List<RetrieveAgencyResponse>>, ProblemDetails>
