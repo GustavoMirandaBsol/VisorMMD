@@ -31,6 +31,7 @@ function json(res: ServerResponse, status: number, data: unknown) {
 }
 
 export default defineConfig({
+  base: '/VisorMMD/',
   plugins: [
     react(),
     {

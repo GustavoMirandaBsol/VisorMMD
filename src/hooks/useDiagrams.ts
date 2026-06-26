@@ -42,13 +42,14 @@ export function useDiagrams() {
   useEffect(() => {
     async function loadDemoFiles() {
       try {
-        const manifestRes = await fetch('/diagrams/manifest.json')
+        const base = import.meta.env.BASE_URL
+        const manifestRes = await fetch(`${base}diagrams/manifest.json`)
         if (!manifestRes.ok) throw new Error('manifest no encontrado')
         const fileNames: string[] = await manifestRes.json()
 
         const loaded = await Promise.all(
           fileNames.map(async (name) => {
-            const res = await fetch(`/diagrams/${name}`)
+            const res = await fetch(`${base}diagrams/${name}`)
             const content = await res.text()
             return { id: generateId(name), name, content, source: 'demo' as const }
           })
