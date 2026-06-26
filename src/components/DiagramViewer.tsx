@@ -46,7 +46,7 @@ export default function DiagramViewer({ diagram, onSave }: Props) {
     setSavedContent(diagram.content)
     setEditMode(false)
     setPan({ x: 0, y: 0 })
-    setZoom(1)
+    setZoom(1.5)
     setRenderJob({ content: diagram.content, seq: ++globalSeq })
   }, [diagram?.id]) // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -72,8 +72,8 @@ export default function DiagramViewer({ diagram, onSave }: Props) {
         if (cancelled || !containerRef.current) return
         containerRef.current.innerHTML = svg
         bindFunctions?.(containerRef.current)
-        const svgEl = containerRef.current.querySelector('svg')
-        if (svgEl) { svgEl.setAttribute('width', '100%'); svgEl.removeAttribute('height') }
+        // No se tocan width/height — Mermaid ya pone las dimensiones correctas en px.
+        // Forzar width:100% estira el SVG al ancho del viewport y empequeñece el contenido.
       } catch (err) {
         if (cancelled) return
         const raw = err instanceof Error ? err.message : String(err)
@@ -232,7 +232,7 @@ export default function DiagramViewer({ diagram, onSave }: Props) {
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4"/>
             </svg>
           </button>
-          <button onClick={() => { setZoom(1); setPan({ x: 0, y: 0 }) }}
+          <button onClick={() => { setZoom(1.5); setPan({ x: 0, y: 0 }) }}
             className="px-2 py-1 text-xs rounded hover:bg-slate-100 text-slate-500 hover:text-slate-700 transition-colors font-mono min-w-[3.5rem] text-center"
             title="Restablecer vista">
             {Math.round(zoom * 100)}%
