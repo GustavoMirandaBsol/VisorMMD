@@ -143,6 +143,15 @@ export function useDiagrams() {
     [selected]
   )
 
+  const updateDiagram = useCallback((id: string, content: string) => {
+    setDiagrams((prev) => {
+      const target = prev.find((d) => d.id === id)
+      if (target) saveToDisk(target.name, content)
+      return prev.map((d) => (d.id === id ? { ...d, content } : d))
+    })
+    setSelected((prev) => (prev?.id === id ? { ...prev, content } : prev))
+  }, [])
+
   return {
     diagrams,
     selected,
@@ -150,5 +159,6 @@ export function useDiagrams() {
     isLoadingDemo,
     handleFileInputChange,
     removeFile,
+    updateDiagram,
   }
 }

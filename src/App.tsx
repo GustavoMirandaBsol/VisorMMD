@@ -10,6 +10,7 @@ export default function App() {
     isLoadingDemo,
     handleFileInputChange,
     removeFile,
+    updateDiagram,
   } = useDiagrams()
 
   return (
@@ -22,7 +23,7 @@ export default function App() {
         isLoadingDemo={isLoadingDemo}
         onFileChange={handleFileInputChange}
       />
-      <DiagramViewer diagram={selected} />
+      <DiagramViewer diagram={selected} onSave={updateDiagram} />
     </div>
   )
 }
